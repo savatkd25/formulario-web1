@@ -1,51 +1,52 @@
-const form = document.getElementById('form')
-
-form.addEventListener('submit', function (event) {
+document.getElementById('form').addEventListener('submit', function (event) {
     event.preventDefault()
 
-    const id = document.getElementById('id').value.trim()
-    const name = document.getElementById('name').value.trim()
-    const surname = document.getElementById('surname').value.trim()
-    const datebirthday = document.getElementById('datebirthday').value.trim()
-    const email = document.getElementById('email').value.trim()
-    const phone = document.getElementById('phone').value.trim()
-    const address = document.getElementById('address').value.trim()
+    // Obtener los valores de los campos
+    const id = document.getElementById('id').value
+    const name = document.getElementById('name').value
+    const surname = document.getElementById('surname').value
+    const datebirthday = document.getElementById('datebirthday').value
+    const email = document.getElementById('email').value
+    const phone = document.getElementById('phone').value
+    const address = document.getElementById('address').value
 
-    // Validación de cédula
-    if (id.length !== 10 || isNaN(id)) {
-        alert('Por favor ingrese una cédula válida de 10 dígitos numéricos.')
+    // Validar campos (ejemplo básico)
+    if (
+        id.trim() === '' ||
+        name.trim() === '' ||
+        surname.trim() === '' ||
+        datebirthday.trim() === '' ||
+        email.trim() === '' ||
+        phone.trim() === '' ||
+        address.trim() === ''
+    ) {
+        alert('Por favor, complete todos los campos.')
         return
     }
 
-    // Validación de nombres y apellidos
-    if (!name || !surname) {
-        alert('Por favor ingrese tanto nombres como apellidos.')
-        return
+    // Crear objeto de cliente
+    const client = {
+        id: id,
+        name: name,
+        surname: surname,
+        datebirthday: datebirthday,
+        email: email,
+        phone: phone,
+        address: address,
     }
 
-    // Validación de fecha de nacimiento
-    const today = new Date()
-    const inputDate = new Date(datebirthday)
-    if (inputDate >= today) {
-        alert('La fecha de nacimiento debe ser anterior a la fecha actual.')
-        return
-    }
+    // Obtener clientes almacenados previamente
+    let clients = JSON.parse(localStorage.getItem('clients')) || []
 
-    // Validación de correo electrónico
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-        alert('Por favor ingrese un correo electrónico válido.')
-        return
-    }
+    // Añadir el nuevo cliente a la lista
+    clients.push(client)
 
-    // Validación de número de teléfono
-    const phoneRegex = /^[0-9]{10}$/
-    if (!phoneRegex.test(phone)) {
-        alert('Por favor ingrese un número de teléfono válido de 10 dígitos numéricos.')
-        return
-    }
+    // Guardar la lista de clientes actualizada en el Local Storage
+    localStorage.setItem('clients', JSON.stringify(clients))
 
-    // Si todas las validaciones son exitosas, puedes enviar el formulario aquí
-    alert('Formulario enviado con éxito!')
-    
+    // Confirmación de registro
+    alert('Cliente registrado con éxito!')
+
+    // Limpiar el formulario
+    document.getElementById('form').reset()
 })

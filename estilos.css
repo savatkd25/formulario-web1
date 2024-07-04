@@ -31,16 +31,20 @@ h1{
     font-weight: 100;
 }
 
+form h1 {
+    
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
 form{
     background: rgb(255, 255, 255);
     padding: 40px 0;
     box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
     border-radius: 20px;
-}
-
-.form{
-    width: 100%;
-    margin: auto;
 }
 
 /* TAMAÑO FORMULARIO */
